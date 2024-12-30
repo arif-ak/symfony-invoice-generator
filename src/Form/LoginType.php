@@ -24,7 +24,7 @@ class LoginType extends AbstractType
                     new Regex('/^[0-9]{10}$/')
                 ],
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('Login', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success order-button mt1'
                 ]

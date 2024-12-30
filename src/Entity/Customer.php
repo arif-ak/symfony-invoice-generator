@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[UniqueEntity(
+    fields: ['contactNumber'],
+    message: 'A customer with this contact number already exists. Please choose a different number.'
+)]
 class Customer
 {
     #[ORM\Id]
