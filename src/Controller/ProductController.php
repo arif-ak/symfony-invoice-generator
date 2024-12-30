@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\ProductService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -81,18 +82,10 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/product/list', name: 'app_product_list', methods: ['GET'])]
-    public function getProducts(ProductRepository $productRepository): JsonResponse
+    public function getProducts(ProductService $productService): JsonResponse
     {
-        $products = $productRepository->findProducts();
-        $productList = [];
+        $productData = $productService->getProductData();
 
-        foreach ($products as $product) {
-            $productList[$product->getId()] = ['quantity' => $product->getQuantity(), 'price' => $product->getPrice()];
-        }
-
-        return new JsonResponse([
-            'productList' => $productList,
-            'productIds' => array_keys($productList),
-        ]);
+        return new JsonResponse($productData);
     }
 }

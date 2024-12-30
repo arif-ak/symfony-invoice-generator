@@ -8,7 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class InvoiceService
 {
-    public function __construct(private EntityManagerInterface $entityManager, private ProductRepository $productRepository)
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private ProductRepository $productRepository
+    )
     {}
 
     public function save(Invoice $invoice): void
