@@ -13,7 +13,6 @@ class InvoiceService
 
     public function save(Invoice $invoice): void
     {
-//        dump($invoice);die;
         $productQuantities = [];
         foreach ($invoice->getInvoiceItems() as $invoiceItem) {
             $invoiceItem->setInvoice($invoice);

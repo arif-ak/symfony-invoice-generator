@@ -58,10 +58,6 @@ class InvoiceType extends AbstractType
                     'class' => 'btn btn-success order-button mt-4'
                 ]
             ])
-//            ->add('customer', EntityType::class, [
-//                'class' => Customer::class,
-//                'choice_label' => 'name',
-//            ])
         ;
     }
 
