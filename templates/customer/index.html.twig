@@ -3,6 +3,11 @@
 {% block title %}Customer index{% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h1>Customer index</h1>
 
     <table class="table">
