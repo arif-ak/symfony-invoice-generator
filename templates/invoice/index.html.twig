@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Invoice List{% endblock %}
+
+{% block body %}
+    <h1>Invoice list</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer Name</th>
+            <th>Customer Contact Number</th>
+            <th>Total Amount</th>
+            <th>Final Amount</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.customer.name }}</td>
+                <td>{{ invoice.customer.contactNumber }}</td>
+                <td>{{ invoice.totalAmount }}</td>
+                <td>{{ invoice.finalAmount }}</td>
+                <td>
+                    <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

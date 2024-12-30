@@ -1,0 +1,34 @@
+{{ form_start(form) }}
+{#    {{ form_widget(form) }}#}
+        <div id ="products" data-prototype ="{{ form_widget(form.invoiceItems.vars.prototype) |e('html_attr')}}">
+{#                {% for item in form.invoiceItems %}#}
+{#                    <div class="card card-warning mt-1 w-50">#}
+{#                        <div class="card-header"></div>#}
+{#                        <div class="card-body">#}
+{#                            <div class="row">#}
+{#                                {{ form_row(item) }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+        </div>
+
+        <div class="row">
+                <div class="col-4">
+                        {{ form_row(form.totalAmount)}}
+                </div>
+                <div class="col-4">
+                        {{ form_row(form.discountPercentage)}}
+                </div>
+                <div class="col-4">
+                        {{ form_row(form.taxPercentage)}}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.finalAmount)}}
+                </div>
+                <div class="col-6">
+                        {{ form_row(form.paymentType)}}
+                </div>
+        </div>
+
+{{ form_end(form) }}
