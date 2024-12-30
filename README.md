@@ -22,3 +22,6 @@ A Symfony project created on December 30, 2024.
 * Run "php bin/console doctrine:schema:update --force". This creates tables and respective tables for newly created database
 * Run "php -S localhost:8000 -t public/". This command uses the built-in PHP web server to run the application
 * The application should be up and running after performing steps mentioned above
+
+## Running tests
+Run "./bin/phpunit" in terminal within project folder 
