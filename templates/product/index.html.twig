@@ -21,14 +21,14 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+                <td><a href="{{ path('app_product_show', {'id': product.id}) }}">{{ product.name }}</a></td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.category.name }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                <td class="d-flex">
+                    <a class="btn btn-primary m-1" href="{{ path('app_product_edit', {'id': product.id}) }}">Edit</a>
+                    {{ include('product/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}

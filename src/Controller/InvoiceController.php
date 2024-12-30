@@ -5,14 +5,9 @@ namespace App\Controller;
 use App\Entity\Customer;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
-use App\Repository\CustomerRepository;
 use App\Repository\InvoiceRepository;
 use App\Service\InvoiceService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -69,8 +64,4 @@ class InvoiceController extends AbstractController
             'invoice' => $invoice,
         ]);
     }
-
-
-
-
 }

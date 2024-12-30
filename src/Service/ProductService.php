@@ -2,9 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Invoice;
 use App\Repository\ProductRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ProductService
 {

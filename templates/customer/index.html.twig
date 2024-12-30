@@ -13,20 +13,20 @@
                 <th>Email</th>
                 <th>Address</th>
                 <th>ContactNumber</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for customer in customers %}
             <tr>
                 <td>{{ customer.id }}</td>
-                <td>{{ customer.name }}</td>
+                <td><a href="{{ path('app_customer_show', {'id': customer.id}) }}">{{ customer.name }}<a></td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.address }}</td>
                 <td>{{ customer.contactNumber }}</td>
-                <td>
-                    <a href="{{ path('app_customer_show', {'id': customer.id}) }}">show</a>
-                    <a href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
+                <td class="d-flex">
+                    <a class="btn btn-primary m-1" href="{{ path('app_customer_edit', {'id': customer.id}) }}">Edit</a>
+                    {{ include('customer/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_customer_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('app_customer_new') }}">Create new</a>
 {% endblock %}

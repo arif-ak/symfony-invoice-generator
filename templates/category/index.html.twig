@@ -11,18 +11,18 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
                 <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
+                <td><a href="{{ path('app_category_show', {'id': category.id}) }}">{{ category.name }}</a></td>
                 <td>{{ category.description }}</td>
-                <td>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
+                <td class="d-flex">
+                    <a class="btn btn-primary m-1" href="{{ path('app_category_edit', {'id': category.id}) }}">Edit</a>
+                    {{ include('category/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_category_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('app_category_new') }}">Create new</a>
 {% endblock %}
