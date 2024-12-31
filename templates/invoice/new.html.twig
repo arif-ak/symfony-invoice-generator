@@ -101,6 +101,17 @@
             //click event
             removeButton.click(function (e) {
                 $(e.target).parents('.card').remove();
+                let total = 0.0;
+                let discount = parseFloat($(".invoice-discount").val());
+                let tax = parseFloat($(".invoice-tax").val());
+                $(".item-price").each(function() {
+                    total = total + parseFloat(this.value);
+                });
+
+                let finalAmount = total - (total * (discount/100));
+                finalAmount = finalAmount + (finalAmount * (tax/100))
+                $(".invoice-price").val(total.toFixed(2));
+                $(".invoice-total").val(finalAmount.toFixed(2));
             })
         }
 
@@ -131,22 +142,18 @@
 
             //append card before add new product button
             addProductButton.before(card)
-
-            //appending card to collection holder
-            // collectionHolder.append(card)
         }
 
         function autoPopulate(currentForm){
 
             let currentProductForm = $(currentForm).parent().parent();
-
             let itemId = currentProductForm.find('.item-name').val();
             let itemPrice = productList[itemId].price;
             let itemQuantity = currentProductForm.find('.item-quantity').val();
             let itemCost = itemPrice * itemQuantity;
 
             if (itemQuantity > productList[itemId].quantity) {
-                alert('No stock available, please reduce quantity one');
+                alert('Only ' + productList[itemId].quantity + ' units available, reduce item quantity');
                 currentProductForm.find('.item-quantity').val(0);
                 currentProductForm.find('.item-cost').val(0);
                 currentProductForm.find('.item-discount').val(0);
@@ -157,20 +164,43 @@
                 return false;
             }
 
-            // if (itemQuantity > cartList[itemId].quantity) {
-            //     alert('No stock available, please reduce quantity three');
-            //     currentProductForm.find('.item-quantity').val(0);
-            //     currentProductForm.find('.item-cost').val(0);
-            //     currentProductForm.find('.item-discount').val(0);
-            //     currentProductForm.find('.item-price').val(0);
-            //
-            //     currentProductForm.find('.item-quantity').focus();
-            //
-            //     return false;
-            // }
+            // Cart quantity check : start
+            let errorFlag = false;
+            for (productId of productIds) {
+                cartList[productId] = {
+                    quantity: 0
+                };
+            }
+            $(".item-name").each(function() {
+                let itemId = this.value;
+                let cartQuantity = parseInt($(this).parent().parent().find('.item-quantity').val());
 
-            // cartList[itemId].quantity = cartList[itemId].quantity - itemQuantity;
-            // console.log(cartList[itemId].quantity);
+                if (productList[itemId].quantity < cartList[itemId].quantity + cartQuantity) {
+                    errorFlag = true;
+
+                    if (productList[itemId].quantity === cartList[itemId].quantity) {
+                        alert('No stock available, please change product item or remove product item entry');
+                    } else {
+                        let remaining = productList[itemId].quantity - cartList[itemId].quantity;
+                        alert('Only ' + remaining + ' unit(s) available to add. Please change quantity value');
+                    }
+
+                    currentProductForm.find('.item-quantity').val(0);
+                    currentProductForm.find('.item-cost').val(0);
+                    currentProductForm.find('.item-discount').val(0);
+                    currentProductForm.find('.item-price').val(0);
+
+                    currentProductForm.find('.item-quantity').focus();
+
+                    return false;
+                }
+                cartList[itemId].quantity = cartList[itemId].quantity + cartQuantity;
+            });
+
+            if (errorFlag) {
+                return false;
+            }
+            // Cart quantity check : end
 
             currentProductForm.find('.item-cost').val(itemCost);
             currentProductForm.find('.item-discount').val(itemCost/10);
@@ -187,33 +217,6 @@
             finalAmount = finalAmount + (finalAmount * (tax/100))
             $(".invoice-price").val(total.toFixed(2));
             $(".invoice-total").val(finalAmount.toFixed(2));
-
-            // Product quantity check : start
-            for (productId of productIds) {
-                cartList[productId] = {
-                    quantity: 0
-                };
-            }
-            $(".item-name").each(function() {
-                let itemId = this.value;
-                let cartQuantity = parseInt($(this).parent().parent().find('.item-quantity').val());
-
-                console.log(productList[itemId].quantity, cartList[itemId].quantity, cartQuantity);
-                if (productList[itemId].quantity < cartList[itemId].quantity + cartQuantity) {
-                    alert('No stock available, please reduce quantity two');
-
-                    currentProductForm.find('.item-quantity').val(0);
-                    currentProductForm.find('.item-cost').val(0);
-                    currentProductForm.find('.item-discount').val(0);
-                    currentProductForm.find('.item-price').val(0);
-
-                    currentProductForm.find('.item-quantity').focus();
-
-                    return false;
-                }
-                cartList[itemId].quantity = cartList[itemId].quantity + cartQuantity;
-            });
-            // Product quantity check : end
         }
     </script>
 {% endblock %}
